@@ -7,25 +7,25 @@ jobs:
   release:
     strategy:
       matrix:
-        id: ["windows", "android"]
+        id: ["windows"]
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: "3.13.9"
-          channel: "stable"
+      # - name: Setup Flutter
+      #   uses: subosito/flutter-action@v2
+      #   with:
+      #     flutter-version: "3.13.9"
+      #     channel: "stable"
 
-      - name: Install dependencies
-        run: flutter pub get
+      # - name: Install dependencies
+      #   run: flutter pub get
 
-      - if: ${{matrix.id == 'android'}}
-        name: Build APK
-        run: flutter build apk
+      # - if: ${{matrix.id == 'android'}}
+      #   name: Build APK
+      #   run: flutter build apk
 
       - name: PWD
         run: echo $pwd
@@ -34,12 +34,12 @@ jobs:
       - name: List dirs/files windows
         run: ls windows
 
-      - if: ${{matrix.id == 'windows'}}
-        name: Build Windows
-        run: flutter build windows
+      # - if: ${{matrix.id == 'windows'}}
+      #   name: Build Windows
+      #   run: flutter build windows
       - if: ${{matrix.id == 'windows'}}
         name: Compile .ISS to .EXE Installer
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+        uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
           path: windows/inno-installer.iss
           options: /Qp
