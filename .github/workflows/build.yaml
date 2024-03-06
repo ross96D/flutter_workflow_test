@@ -7,12 +7,17 @@ jobs:
   release:
     strategy:
       matrix:
-        id: ["windows", "android"]
-        os: [windows-latest]
+        id: ["android"]
+        os: ["ubuntu-latest"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: "Setup Java"
+        uses: actions/setup-java@v1
+        with:
+          java-version: "11.x"
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.13.0
