@@ -41,8 +41,8 @@ jobs:
         name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
-          path: D:\a\flutter_workflow_test\flutter_workflow_test\windows\inno_installer.iss
-          options: /Qp
+          path: windows/inno_installer.iss
+          options: /O+
 
       - if: ${{matrix.id == 'windows'}}
         name: Create Release Windows
