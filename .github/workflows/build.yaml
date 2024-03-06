@@ -41,7 +41,7 @@ jobs:
         name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
-          path: windows/inno-installer.iss
+          path: .\windows\inno_installer.iss
           options: /Qp
 
       - if: ${{matrix.id == 'windows'}}
