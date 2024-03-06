@@ -28,7 +28,7 @@ jobs:
         run: flutter build apk
 
       - name: PWD
-        run: echo %cd%
+        run: echo $pwd
 
       - if: ${{matrix.id == 'windows'}}
         name: Build Windows
