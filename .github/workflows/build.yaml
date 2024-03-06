@@ -27,6 +27,9 @@ jobs:
         name: Build APK
         run: flutter build apk
 
+      - name: PWD
+        run: echo %cd%
+
       - if: ${{matrix.id == 'windows'}}
         name: Build Windows
         run: flutter build windows
