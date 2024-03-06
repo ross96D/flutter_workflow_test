@@ -4,7 +4,7 @@
 #define MyAppName "Workflow Test"
 #define MyAppVersion "3.3.1"
 #define MyAppPublisher "Test inno"
-#define MyAppExeName "workflow_test.exe"
+#define MyAppExeName "flutter_workflow_test.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.

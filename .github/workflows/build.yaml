@@ -29,6 +29,10 @@ jobs:
 
       - name: PWD
         run: echo $pwd
+      - name: List dirs/files
+        run: ls
+      - name: List dirs/files windows
+        run: ls windows
 
       - if: ${{matrix.id == 'windows'}}
         name: Build Windows
