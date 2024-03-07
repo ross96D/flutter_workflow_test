@@ -19,7 +19,7 @@ def main(token: str):
 
 
 if __name__ == "__main__":
-    if sys.argv.__len__() != 1:
+    if sys.argv.__len__() != 2:
         print("update pubspec takes 1 argument")
         exit(1)
     main(sys.argv[1])
