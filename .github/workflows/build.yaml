@@ -9,19 +9,19 @@ jobs:
       matrix:
         os: ["ubuntu-latest", "windows-latest"]
     runs-on: ${{ matrix.os }}
-    env:
-      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    # env:
+    #   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Set up Python
-      #   uses: actions/setup-python@v4
-      #   with:
-      #     python-version: "3.10"
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
 
-      # - name: Fix pubspec
-      #   run: python update_pubspeck.py
+      - name: Fix pubspec
+        run: python update_pubspec.py ${{ secrets.ACCESS_TOKEN }}
 
       # - name: Setup ssh
       #   uses: shimataro/ssh-key-action@v2.7.0
@@ -41,9 +41,6 @@ jobs:
         with:
           flutter-version: "3.13.9"
           channel: "stable"
-
-      - name: Add token
-        run: dart pub token add --env-var ACCESS_TOKEN https://github.com
 
       - name: Install dependencies
         run: flutter pub get
