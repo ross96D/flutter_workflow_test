@@ -387,9 +387,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
+      ref: master
       resolved-ref: "7e5b6a838e9643f570b5b7b864724b92b57d3232"
-      url: "https://github.com/Wishmater/from_zero_ui.git"
+      url: "https://ross96D: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@github.com/Wishmater/from_zero_ui.git"
     source: git
     version: "0.0.7"
   go_router:
