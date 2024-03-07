@@ -9,11 +9,27 @@ jobs:
       matrix:
         os: ["ubuntu-latest", "windows-latest"]
     runs-on: ${{ matrix.os }}
+    env:
+      ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.ACCESS_TOKEN }}
+
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
+      #   with:
+      #     python-version: "3.10"
+
+      # - name: Fix pubspec
+      #   run: python update_pubspeck.py
+
+      # - name: Setup ssh
+      #   uses: shimataro/ssh-key-action@v2.7.0
+      #   with:
+      #     key: ${{ secrets.SSH_KEY }}
+      #     name: id_rsa
+      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
+      #     if_key_exists: replace
 
       - name: "Setup Java"
         uses: actions/setup-java@v1
@@ -26,19 +42,15 @@ jobs:
           flutter-version: "3.13.9"
           channel: "stable"
 
+      - name: Add token
+        run: dart pub token add --env-var ACCESS_TOKEN https://github.com
+
       - name: Install dependencies
         run: flutter pub get
 
       - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Build APK
         run: flutter build apk
-
-      - name: PWD
-        run: echo $pwd
-      - name: List dirs/files
-        run: ls
-      - name: List dirs/files windows
-        run: ls windows
 
       - if: ${{matrix.os == 'windows-latest'}}
         name: Build Windows
