@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  from_zero_ui:
+    git: https://github.com/Wishmater/from_zero_ui.git
 
 
   # The following adds the Cupertino Icons font to your application.

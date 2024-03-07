@@ -7,8 +7,7 @@ jobs:
   release:
     strategy:
       matrix:
-        id: ["android"]
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "windows-latest"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -28,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - if: ${{matrix.id == 'android'}}
+      - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Build APK
         run: flutter build apk
 
@@ -39,24 +38,24 @@ jobs:
       - name: List dirs/files windows
         run: ls windows
 
-      - if: ${{matrix.id == 'windows'}}
+      - if: ${{matrix.os == 'windows-latest'}}
         name: Build Windows
         run: flutter build windows
-      - if: ${{matrix.id == 'windows'}}
+      - if: ${{matrix.os == 'windows-latest'}}
         name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
           path: windows/inno_installer.iss
           options: /Qp
 
-      - if: ${{matrix.id == 'windows'}}
+      - if: ${{matrix.os == 'windows-latest'}}
         name: Create Release Windows
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           artifacts: "build/windows/workflow_test_install.exe"
 
-      - if: ${{matrix.id == 'android'}}
+      - if: ${{matrix.os == 'ubuntu-latest'}}
         name: Create Release Android
         uses: ncipollo/release-action@v1
         with:

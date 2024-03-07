@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:from_zero_ui/from_zero_ui.dart' as zero;
 
 void main() {
   runApp(const MyApp());
@@ -112,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            const zero.TextIcon("comida", width: 70, height: 70),
           ],
         ),
       ),
