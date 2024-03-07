@@ -4,13 +4,41 @@ on:
       - "*"
 
 jobs:
-  release:
-    strategy:
-      matrix:
-        os: ["ubuntu-latest", "windows-latest"]
-    runs-on: ${{ matrix.os }}
-    # env:
-    #   ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  release-android:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: "Setup Java"
+        uses: actions/setup-java@v1
+        with:
+          java-version: "12.x"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2.13.0
+        with:
+          flutter-version: "3.13.9"
+          channel: "stable"
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk
+
+      - name: Create Release Android
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifacts: "build/app/outputs/apk/release/app-release.apk"
+
+  release-windows:
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,11 +55,6 @@ jobs:
       # - name: Fix pubspec
       #   run: python update_pubspec.py ${{ secrets.ACCESS_TOKEN }}
 
-      - name: "Setup Java"
-        uses: actions/setup-java@v1
-        with:
-          java-version: "12.x"
-
       - name: Setup Flutter
         uses: subosito/flutter-action@v2.12.0
         with:
@@ -41,30 +64,17 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Build APK
-        run: flutter build apk
-
-      - if: ${{matrix.os == 'windows-latest'}}
-        name: Build Windows
+      - name: Build Windows
         run: flutter build windows
-      - if: ${{matrix.os == 'windows-latest'}}
-        name: Compile .ISS to .EXE Installer
+
+      - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
           path: windows/inno_installer.iss
           options: /Qp
 
-      - if: ${{matrix.os == 'windows-latest'}}
-        name: Create Release Windows
+      - name: Create Release Windows
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           artifacts: "build/windows/workflow_test_install.exe"
-
-      - if: ${{matrix.os == 'ubuntu-latest'}}
-        name: Create Release Android
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          artifacts: "build/app/outputs/apk/release/app-release.apk"
