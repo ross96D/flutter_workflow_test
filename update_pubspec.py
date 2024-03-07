@@ -10,7 +10,7 @@ def main(token: str):
             if "url: https://github.com/" in line:
                 line = line.replace(
                     "url: https://github.com/",
-                    f"url: ross96D:{token}@github.com/",
+                    f"url: https://ross96D:{token}@github.com/",
                 )
             new_content.append(line)
 
