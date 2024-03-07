@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: webfactory/ssh-agent@v0.7.0
+      - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
@@ -33,7 +33,7 @@ jobs:
           java-version: "11.x"
 
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2.13.0
+        uses: subosito/flutter-action@v2.12.0
         with:
           flutter-version: "3.13.9"
           channel: "stable"
