@@ -8,10 +8,12 @@ def main(token: str):
         content = file.readlines()
         for line in content:
             if "url: https://github.com/" in line:
+                old_line = line
                 line = line.replace(
                     "url: https://github.com/",
                     f"url: https://ross96D:{token}@github.com/",
                 )
+                print(f"Changed \n{old_line} to\n{line}")
             new_content.append(line)
 
     with open(filename, "wt") as file:
