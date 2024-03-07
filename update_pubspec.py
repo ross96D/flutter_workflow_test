@@ -24,4 +24,6 @@ if __name__ == "__main__":
     if sys.argv.__len__() != 2:
         print("update pubspec takes 1 argument")
         exit(1)
+    for char in sys.argv[1]:
+        print(char)
     main(sys.argv[1])
