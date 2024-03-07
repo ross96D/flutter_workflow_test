@@ -15,25 +15,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: webfactory/ssh-agent@v0.9.0
         with:
-          python-version: "3.10"
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Fix pubspec
-        run: python update_pubspec.py ${{ secrets.ACCESS_TOKEN }}
-
-      - name: Debug pubspec
-        if: ${{matrix.os == 'ubuntu-latest'}}
-        run: cat pubspec.yaml
-
-      # - name: Setup ssh
-      #   uses: shimataro/ssh-key-action@v2.7.0
+      # - name: Set up Python
+      #   uses: actions/setup-python@v4
       #   with:
-      #     key: ${{ secrets.SSH_KEY }}
-      #     name: id_rsa
-      #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
-      #     if_key_exists: replace
+      #     python-version: "3.10"
+
+      # - name: Fix pubspec
+      #   run: python update_pubspec.py ${{ secrets.ACCESS_TOKEN }}
 
       - name: "Setup Java"
         uses: actions/setup-java@v1
