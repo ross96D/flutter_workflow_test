@@ -388,8 +388,8 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "7e5b6a838e9643f570b5b7b864724b92b57d3232"
-      url: "https://ross96D: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@github.com/Wishmater/from_zero_ui.git"
+      resolved-ref: cfa3c02a8ddba944cd0f5be99c3942fb830bb1e5
+      url: "https://github.com/wishmater/from_zero_ui.git"
     source: git
     version: "0.0.7"
   go_router:
@@ -891,10 +891,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher
-      sha256: c512655380d241a337521703af62d2c122bf7b77a46ff7dd750092aa9433499c
+      sha256: "781bd58a1eb16069412365c98597726cd8810ae27435f04b3b4d3a470bacd61e"
       url: "https://pub.dev"
     source: hosted
-    version: "6.2.4"
+    version: "6.1.12"
   url_launcher_android:
     dependency: transitive
     description:
