@@ -25,19 +25,19 @@ jobs:
           flutter-version: "3.13.9"
           channel: "stable"
 
-      - run: cd frontend
-
       - name: Install dependencies
         run: flutter pub get
+        working-directory: frontend
 
       - name: Build APK
         run: flutter build apk
+        working-directory: frontend
 
       - name: Create Release Android
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "build/app/outputs/apk/release/app-release.apk"
+          artifacts: "frontend/build/app/outputs/apk/release/app-release.apk"
 
   frontend-release-windows:
     runs-on: windows-latest
@@ -67,21 +67,23 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: frontend
 
       - name: Build Windows
         run: flutter build windows
+        working-directory: frontend
 
       - name: Compile .ISS to .EXE Installer
         uses: Minionguyjpro/Inno-Setup-Action@v1.2.4
         with:
-          path: windows/inno_installer.iss
+          path: frontend/windows/inno_installer.iss
           options: /Qp
 
       - name: Create Release Windows
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "build/windows/workflow_test_install.exe"
+          artifacts: "frontend/build/windows/workflow_test_install.exe"
 
   backend-release-windows:
     runs-on: windows-latest
@@ -95,16 +97,15 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - run: cd backend
-
       - name: Install dependencies
         run: dart pub get
 
       - name: Build
         run: dart compile exe -o server.exe bin/server.dart
+        working-directory: backend
 
       - name: Create Release Server
         uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
-          artifacts: "server.exe"
+          artifacts: "backend/server.exe"
